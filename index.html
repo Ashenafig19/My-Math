@@ -3,150 +3,217 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Simple Math Operations</title>
+  <title>Modern Math Calculator</title>
   <style>
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
+
     body {
-      background-color: #f4f6f8;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100dvh;
       padding: 20px;
     }
-    .card {
-      background: #ffffff;
-      padding: 28px;
-      border-radius: 16px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+
+    .calculator-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 32px;
+      border-radius: 24px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
       width: 100%;
-      max-width: 400px;
+      max-width: 420px;
     }
-    h1 {
-      font-size: 1.5rem;
-      margin-bottom: 20px;
-      color: #111827;
+
+    .header {
       text-align: center;
+      margin-bottom: 24px;
     }
+
+    .header h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #0f172a;
+      letter-spacing: -0.5px;
+    }
+
+    .header p {
+      font-size: 0.875rem;
+      color: #64748b;
+      margin-top: 4px;
+    }
+
     .input-group {
       margin-bottom: 16px;
     }
+
     label {
       display: block;
-      font-size: 0.875rem;
+      font-size: 0.8rem;
       font-weight: 600;
-      color: #374151;
-      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #475569;
+      margin-bottom: 8px;
     }
+
     input {
       width: 100%;
-      padding: 12px;
-      font-size: 1rem;
-      border: 1px solid #d1d5db;
-      border-radius: 8px;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-    input:focus {
-      border-color: #2563eb;
-    }
-    .btn-group {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-top: 20px;
-    }
-    button {
-      padding: 14px;
+      padding: 14px 16px;
       font-size: 1.1rem;
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      outline: none;
+      background: #f8fafc;
+      transition: all 0.2s ease;
+    }
+
+    input:focus {
+      border-color: #3b82f6;
+      background: #ffffff;
+      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+    }
+
+    .grid-operators {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin: 24px 0;
+    }
+
+    button {
+      padding: 16px;
+      font-size: 1.25rem;
       font-weight: 600;
       border: none;
-      border-radius: 8px;
+      border-radius: 12px;
       cursor: pointer;
-      min-height: 48px;
-      transition: background-color 0.2s, transform 0.1s;
+      min-height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.15s ease;
+      color: white;
     }
+
     button:active {
-      transform: scale(0.98);
+      transform: scale(0.96);
     }
-    .btn-add {
-      background-color: #2563eb;
-      color: white;
-    }
-    .btn-add:hover {
-      background-color: #1d4ed8;
-    }
-    .btn-sub {
-      background-color: #dc2626;
-      color: white;
-    }
-    .btn-sub:hover {
-      background-color: #b91c1c;
-    }
-    .result-box {
-      margin-top: 24px;
-      padding: 16px;
-      background-color: #f3f4f6;
-      border-radius: 8px;
+
+    .btn-add { background-color: #2563eb; }
+    .btn-add:hover { background-color: #1d4ed8; }
+
+    .btn-sub { background-color: #dc2626; }
+    .btn-sub:hover { background-color: #b91c1c; }
+
+    .btn-mul { background-color: #d97706; }
+    .btn-mul:hover { background-color: #b45309; }
+
+    .btn-div { background-color: #059669; }
+    .btn-div:hover { background-color: #047857; }
+
+    .result-card {
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 20px;
       text-align: center;
+      transition: all 0.2s ease;
     }
-    .result-title {
-      font-size: 0.875rem;
-      color: #6b7280;
-    }
-    .result-value {
-      font-size: 1.75rem;
+
+    .result-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
       font-weight: 700;
-      color: #111827;
+      color: #64748b;
+    }
+
+    .result-value {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #0f172a;
       margin-top: 4px;
+      word-break: break-word;
+    }
+
+    .error-text {
+      color: #dc2626 !important;
+      font-size: 1.1rem !important;
     }
   </style>
 </head>
 <body>
-  <div class="card">
-    <h1>Math Calculator</h1>
+
+  <div class="calculator-card">
+    <div class="header">
+      <h1>Math Studio</h1>
+      <p>Select an operation to calculate</p>
+    </div>
+
     <div class="input-group">
       <label for="num1">First Number</label>
-      <input type="number" id="num1" placeholder="Enter first number">
+      <input type="number" id="num1" placeholder="0" step="any">
     </div>
+
     <div class="input-group">
       <label for="num2">Second Number</label>
-      <input type="number" id="num2" placeholder="Enter second number">
+      <input type="number" id="num2" placeholder="0" step="any">
     </div>
-    <div class="btn-group">
-      <button class="btn-add" onclick="calculate('+')">Add (+)</button>
-      <button class="btn-sub" onclick="calculate('-')">Subtract (-)</button>
+
+    <div class="grid-operators">
+      <button class="btn-add" onclick="calculate('+')"><span>+</span> Add</button>
+      <button class="btn-sub" onclick="calculate('-')"><span>−</span> Subtract</button>
+      <button class="btn-mul" onclick="calculate('*')"><span>×</span> Multiply</button>
+      <button class="btn-div" onclick="calculate('/')"><span>÷</span> Divide</button>
     </div>
-    <div class="result-box">
-      <div class="result-title">Result</div>
+
+    <div class="result-card">
+      <div class="result-label">Output</div>
       <div class="result-value" id="result">0</div>
     </div>
   </div>
 
   <script>
-    function calculate(operation) {
-      const val1 = parseFloat(document.getElementById('num1').value);
-      const val2 = parseFloat(document.getElementById('num2').value);
-      const resultEl = document.getElementById('result');
+    function calculate(op) {
+      const v1 = parseFloat(document.getElementById('num1').value);
+      const v2 = parseFloat(document.getElementById('num2').value);
+      const resEl = document.getElementById('result');
 
-      if (isNaN(val1) || isNaN(val2)) {
-        resultEl.textContent = 'Please enter valid numbers';
-        resultEl.style.fontSize = '1rem';
+      resEl.classList.remove('error-text');
+
+      if (isNaN(v1) || isNaN(v2)) {
+        resEl.textContent = 'Enter both numbers';
+        resEl.classList.add('error-text');
         return;
       }
 
-      resultEl.style.fontSize = '1.75rem';
-      if (operation === '+') {
-        resultEl.textContent = val1 + val2;
-      } else if (operation === '-') {
-        resultEl.textContent = val1 - val2;
+      let res;
+      switch (op) {
+        case '+': res = v1 + v2; break;
+        case '-': res = v1 - v2; break;
+        case '*': res = v1 * v2; break;
+        case '/':
+          if (v2 === 0) {
+            resEl.textContent = 'Cannot divide by 0';
+            resEl.classList.add('error-text');
+            return;
+          }
+          res = v1 / v2;
+          break;
       }
+
+      // Round long decimal floats cleanly to 4 places maximum
+      resEl.textContent = Number.isInteger(res) ? res : Number(res.toFixed(4));
     }
   </script>
+
 </body>
 </html>
