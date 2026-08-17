@@ -3,151 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Modern Math Calculator</title>
+  <title>Math Studio - Calculator</title>
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    }
-
-    body {
-      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100dvh;
-      padding: 20px;
-    }
-
-    .calculator-card {
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
-      padding: 32px;
-      border-radius: 24px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-      width: 100%;
-      max-width: 420px;
-    }
-
-    .header {
-      text-align: center;
-      margin-bottom: 24px;
-    }
-
-    .header h1 {
-      font-size: 1.6rem;
-      font-weight: 700;
-      color: #0f172a;
-      letter-spacing: -0.5px;
-    }
-
-    .header p {
-      font-size: 0.875rem;
-      color: #64748b;
-      margin-top: 4px;
-    }
-
-    .input-group {
-      margin-bottom: 16px;
-    }
-
-    label {
-      display: block;
-      font-size: 0.8rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: #475569;
-      margin-bottom: 8px;
-    }
-
-    input {
-      width: 100%;
-      padding: 14px 16px;
-      font-size: 1.1rem;
-      border: 2px solid #e2e8f0;
-      border-radius: 12px;
-      outline: none;
-      background: #f8fafc;
-      transition: all 0.2s ease;
-    }
-
-    input:focus {
-      border-color: #3b82f6;
-      background: #ffffff;
-      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
-    }
-
-    .grid-operators {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-      margin: 24px 0;
-    }
-
-    button {
-      padding: 16px;
-      font-size: 1.25rem;
-      font-weight: 600;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      min-height: 52px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      transition: all 0.15s ease;
-      color: white;
-    }
-
-    button:active {
-      transform: scale(0.96);
-    }
-
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); display: flex; justify-content: center; align-items: center; min-height: 100dvh; padding: 20px; }
+    .calculator-card { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); padding: 32px; border-radius: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.3); width: 100%; max-width: 420px; }
+    .header { text-align: center; margin-bottom: 24px; }
+    .header h1 { font-size: 1.6rem; color: #0f172a; }
+    .header p { font-size: 0.875rem; color: #64748b; margin-top: 4px; }
+    .nav-link { display: inline-block; margin-top: 10px; color: #2563eb; font-weight: 600; text-decoration: none; font-size: 0.9rem; }
+    .nav-link:hover { text-decoration: underline; }
+    .input-group { margin-bottom: 16px; }
+    label { display: block; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; color: #475569; margin-bottom: 8px; }
+    input { width: 100%; padding: 14px; font-size: 1.1rem; border: 2px solid #e2e8f0; border-radius: 12px; outline: none; background: #f8fafc; }
+    input:focus { border-color: #3b82f6; background: #fff; }
+    .grid-operators { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 24px 0; }
+    button { padding: 16px; font-size: 1.25rem; font-weight: 600; border: none; border-radius: 12px; cursor: pointer; min-height: 52px; color: white; transition: transform 0.1s; }
+    button:active { transform: scale(0.96); }
     .btn-add { background-color: #2563eb; }
-    .btn-add:hover { background-color: #1d4ed8; }
-
     .btn-sub { background-color: #dc2626; }
-    .btn-sub:hover { background-color: #b91c1c; }
-
     .btn-mul { background-color: #d97706; }
-    .btn-mul:hover { background-color: #b45309; }
-
     .btn-div { background-color: #059669; }
-    .btn-div:hover { background-color: #047857; }
-
-    .result-card {
-      background: #f1f5f9;
-      border: 1px solid #e2e8f0;
-      border-radius: 16px;
-      padding: 20px;
-      text-align: center;
-      transition: all 0.2s ease;
-    }
-
-    .result-label {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      font-weight: 700;
-      color: #64748b;
-    }
-
-    .result-value {
-      font-size: 2rem;
-      font-weight: 800;
-      color: #0f172a;
-      margin-top: 4px;
-      word-break: break-word;
-    }
-
-    .error-text {
-      color: #dc2626 !important;
-      font-size: 1.1rem !important;
-    }
+    .result-card { background: #f1f5f9; border: 1px solid #e2e8f0; border-radius: 16px; padding: 20px; text-align: center; }
+    .result-label { font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: #64748b; }
+    .result-value { font-size: 2rem; font-weight: 800; color: #0f172a; margin-top: 4px; }
+    .error-text { color: #dc2626 !important; font-size: 1.1rem !important; }
   </style>
 </head>
 <body>
@@ -156,6 +36,7 @@
     <div class="header">
       <h1>Math Studio</h1>
       <p>Select an operation to calculate</p>
+      <a href="history.html" class="nav-link">📜 View Calculation History →</a>
     </div>
 
     <div class="input-group">
@@ -169,10 +50,10 @@
     </div>
 
     <div class="grid-operators">
-      <button class="btn-add" onclick="calculate('+')"><span>+</span> Add</button>
-      <button class="btn-sub" onclick="calculate('-')"><span>−</span> Subtract</button>
-      <button class="btn-mul" onclick="calculate('*')"><span>×</span> Multiply</button>
-      <button class="btn-div" onclick="calculate('/')"><span>÷</span> Divide</button>
+      <button class="btn-add" onclick="calculate('+')">+ Add</button>
+      <button class="btn-sub" onclick="calculate('-')">− Subtract</button>
+      <button class="btn-mul" onclick="calculate('*')">× Multiply</button>
+      <button class="btn-div" onclick="calculate('/')">÷ Divide</button>
     </div>
 
     <div class="result-card">
@@ -186,7 +67,6 @@
       const v1 = parseFloat(document.getElementById('num1').value);
       const v2 = parseFloat(document.getElementById('num2').value);
       const resEl = document.getElementById('result');
-
       resEl.classList.remove('error-text');
 
       if (isNaN(v1) || isNaN(v2)) {
@@ -196,10 +76,11 @@
       }
 
       let res;
+      let symbol = op;
       switch (op) {
         case '+': res = v1 + v2; break;
         case '-': res = v1 - v2; break;
-        case '*': res = v1 * v2; break;
+        case '*': res = v1 * v2; symbol = '×'; break;
         case '/':
           if (v2 === 0) {
             resEl.textContent = 'Cannot divide by 0';
@@ -207,13 +88,22 @@
             return;
           }
           res = v1 / v2;
+          symbol = '÷';
           break;
       }
 
-      // Round long decimal floats cleanly to 4 places maximum
-      resEl.textContent = Number.isInteger(res) ? res : Number(res.toFixed(4));
+      const finalRes = Number.isInteger(res) ? res : Number(res.toFixed(4));
+      resEl.textContent = finalRes;
+
+      // Save to localStorage
+      saveHistory(`${v1} ${symbol} ${v2} = ${finalRes}`);
+    }
+
+    function saveHistory(entry) {
+      const history = JSON.parse(localStorage.getItem('math_history') || '[]');
+      history.unshift({ entry, timestamp: new Date().toLocaleTimeString() });
+      localStorage.setItem('math_history', JSON.stringify(history.slice(0, 50))); // Keep last 50 entries
     }
   </script>
-
 </body>
 </html>
